@@ -1,6 +1,6 @@
 services:
   website:
-    image: ghcr.io/isaiahharvi/website/website:0.0.1
+    image: ghcr.io/isaiahharvi/website/site:latest
     build:
       context: .
       dockerfile: deploy/Dockerfile
