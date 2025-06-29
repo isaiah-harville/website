@@ -19,6 +19,7 @@
   "author": "Isaiah Harville",
   "license": "MIT",
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.11"
+    "@tailwindcss/postcss": "^4.1.11",
+    "express": "^4.21.2"
   }
 }

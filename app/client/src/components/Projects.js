@@ -17,20 +17,27 @@ const Projects = () => {
         setProjects([
           {
             id: 1,
-            name: "E-Commerce Platform",
-            description: "Full-stack e-commerce solution with payment integration and admin dashboard.",
-            tech: ["React", "Node.js", "MongoDB", "Stripe"],
-            github: "https://github.com/yourusername/project-one",
-            demo: "https://project-one-demo.com"
+            name: "SigKit",
+            description: "Opensourced DSP Toolkit offering pre-trained modulation classification models for Python. Features PyTorch transforms, datasets, and a full training pipeline.",
+            tech: ["Python", "PyTorch Lightning"],
+            github: "https://github.com/isaiahharvi/sigkit",
+            demo: "https://isaiahharvi.github.io/SigKit/api/modules.html"
           },
           {
             id: 2,
-            name: "Task Management App",
-            description: "Collaborative task management with real-time updates and team features.",
-            tech: ["React", "Express", "Socket.io", "PostgreSQL"],
-            github: "https://github.com/yourusername/project-two",
-            demo: "https://project-two-demo.com"
-          }
+            name: "ORION",
+            description: "1st Place Winner Hackathon Project | Online data visualization tool",
+            tech: ["Python", "Typescript", "PostgreSQL", "FastAPI", "Kubernetes / Docker"],
+            github: "https://github.com/isaiahharvi/orion",
+            demo: "https://orion.harville.dev"
+          },
+          {
+            id: 3,
+            name: "Homelab",
+            description: "Repository contaning my kubernetes cluster files. I manage a homelab that deploys all of my services, including this site.",
+            tech: ["Kubernetes", "Docker", "FluxCD"],
+            github: "https://github.com/isaiahharvi/homelab",
+          },
         ]);
       } finally {
         setLoading(false);
@@ -61,7 +68,7 @@ const Projects = () => {
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-purple-500/30 text-purple-200 rounded-full text-sm"
+                      className="px-3 py-1 bg-blue-500/30 text-blue-200 rounded-full text-sm"
                     >
                       {tech}
                     </span>
@@ -73,7 +80,7 @@ const Projects = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors"
                   >
                     <Github size={18} />
                     <span className="text-white">Code</span>
@@ -83,7 +90,7 @@ const Projects = () => {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors"
+                      className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
                     >
                       <ExternalLink size={18} />
                       <span className="text-white">Demo</span>

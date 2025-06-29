@@ -15,19 +15,19 @@ const Contact = () => {
   const socialLinks = [
     {
       name: 'GitHub',
-      url: 'https://github.com/yourusername',
+      url: 'https://github.com/isaiahharvi',
       icon: Github,
       color: 'hover:text-gray-800'
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/yourprofile',
+      url: 'https://linkedin.com/in/isaiahharvi',
       icon: Linkedin,
       color: 'hover:text-blue-600'
     },
     {
       name: 'Email',
-      url: 'mailto:your.email@example.com',
+      url: 'mailto:isaiah@harville.dev',
       icon: Mail,
       color: 'hover:text-red-500'
     }
@@ -53,7 +53,7 @@ const Contact = () => {
     } catch (error) {
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again.'
+        message: 'Failed to send message. Please reach out directly: isaiah@harville.dev.'
       });
     } finally {
       setIsSubmitting(false);
@@ -65,7 +65,8 @@ const Contact = () => {
       <div className="max-w-4xl mx-auto">
         <h3 className="text-4xl font-bold text-white text-center mb-8">Let's Connect</h3>
         <p className="text-xl text-gray-300 text-center mb-12">
-          I'm always interested in new opportunities and collaborations.
+          I'm always interested in new opportunities and collaborations. <br></br>
+          Feel free to reach out directly at <b>isaiah@harville.dev</b>
         </p>
 
         {/* Contact Form */}
@@ -83,7 +84,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Your Name"
                 />
               </div>
@@ -98,7 +99,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -115,7 +116,7 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="What would you like to discuss?"
               />
             </div>
@@ -131,7 +132,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows="5"
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Your message..."
               />
             </div>
@@ -139,7 +140,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 rounded-lg text-white font-medium transition-colors"
+              className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 rounded-lg text-white font-medium transition-colors"
             >
               <Send size={18} />
               <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>

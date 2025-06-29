@@ -24,7 +24,7 @@ const Header = () => {
     <nav className="fixed top-0 w-full bg-black/20 backdrop-blur-lg border-b border-white/10 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">Your Name</h1>
+          <h1 className="text-2xl font-bold text-white">IRH // Portifolio Site</h1>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
