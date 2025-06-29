@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 app.set('trust proxy', 1);
 
@@ -201,7 +201,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 
     // Configure email transporter
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail', // or your preferred email service
       auth: {
         user: process.env.EMAIL_USER,
@@ -316,6 +316,15 @@ app.get('/api/stats', (req, res) => {
     });
   }
 });
+
+
+const path = require('path');
+// 1) serve built client
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+// 2) fallback for client-side routing
+app.get(/^(?!\/api).*/, (req, res) =>
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+);
 
 // 404 handler
 app.use('*', (req, res) => {
