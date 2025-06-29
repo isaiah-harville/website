@@ -31,7 +31,6 @@ const Hero = () => {
             <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
              <img
                 src="https://media.licdn.com/dms/image/v2/D5603AQEalXn5oF8iUg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1710020124672?e=1756944000&v=beta&t=LcnZuf8X9Z8l6kszUjILOlhpvTCYkbIzHCYXEF7Ffyw"
-              alt="Isaiah Harville"
               className="w-full h-full object-cover"
             />
             {/* <User size={64} className="text-white" /> */}
