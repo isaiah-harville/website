@@ -1,12 +1,12 @@
-FROM node:24-alpine AS client-builder
+FROM node:22-alpine AS client-builder
 WORKDIR /app/client
 
 COPY app/client/package*.json ./
-RUN npm install
+RUN npm ci --verbose
 COPY app/client/ ./
 RUN npm run build
 
-FROM node:24-alpine
+FROM node:22-alpine
 WORKDIR /app/server
 
 COPY app/server/package*.json ./
