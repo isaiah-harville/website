@@ -1,6 +1,43 @@
 import React, { useState } from 'react';
-import { Github, Linkedin, Mail, Send } from 'lucide-react';
+import PropTypes from 'prop-types';
+import { Send, CheckCircle, XCircle } from 'lucide-react';
 import { contactAPI } from '../services/api';
+import SectionWrapper from './SectionWrapper';
+import SocialLinks from './SocialLinks';
+
+const FormField = ({ label, name, type = 'text', value, onChange, required = true, rows, placeholder }) => {
+  const InputComponent = rows ? 'textarea' : 'input';
+
+  return (
+    <div>
+      <label htmlFor={name} className="block text-sm font-medium text-gray-300 mb-2">
+        {label} {required && <span className="text-red-400">*</span>}
+      </label>
+      <InputComponent
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        rows={rows}
+        className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        placeholder={placeholder}
+      />
+    </div>
+  );
+};
+
+FormField.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  rows: PropTypes.number,
+  placeholder: PropTypes.string
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,27 +48,6 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-
-  const socialLinks = [
-    {
-      name: 'GitHub',
-      url: 'https://github.com/isaiahharvi',
-      icon: Github,
-      color: 'hover:text-gray-800'
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/in/isaiahharvi',
-      icon: Linkedin,
-      color: 'hover:text-blue-600'
-    },
-    {
-      name: 'Email',
-      url: 'mailto:isaiah@harville.dev',
-      icon: Mail,
-      color: 'hover:text-red-500'
-    }
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,13 +63,13 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      await contactAPI.send(formData);
-      setSubmitStatus({ type: 'success', message: 'Message sent successfully!' });
+      await contactAPI.sendMessage(formData);
+      setSubmitStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please reach out directly: isaiah@harville.dev.'
+        message: 'Failed to send message. Please reach out directly at isaiah@harville.dev'
       });
     } finally {
       setIsSubmitting(false);
@@ -61,123 +77,87 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <h3 className="text-4xl font-bold text-white text-center mb-8">Let's Connect</h3>
-        <p className="text-xl text-gray-300 text-center mb-12">
-          I'm always interested in new opportunities and collaborations. <br></br>
-          Feel free to reach out directly at <b>isaiah@harville.dev</b>
-        </p>
+    <SectionWrapper
+      id="contact"
+      title="Let's Connect"
+      subtitle="I'm always interested in new opportunities and collaborations."
+      containerClassName="max-w-4xl"
+    >
+      <p className="text-center text-gray-400 mb-12">
+        Feel free to reach out directly at{' '}
+        <a href="mailto:isaiah@harville.dev" className="text-blue-400 hover:text-blue-300 font-semibold">
+          isaiah@harville.dev
+        </a>
+      </p>
 
-        {/* Contact Form */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 mb-12">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Your Name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="your.email@example.com"
-                />
-              </div>
+      {/* Contact Form */}
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 mb-12 hover:bg-white/[0.12] transition-all">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <FormField
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+            />
+            <FormField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <FormField
+            label="Subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            placeholder="What would you like to discuss?"
+          />
+
+          <FormField
+            label="Message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={5}
+            placeholder="Your message..."
+          />
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            aria-label="Send message"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed rounded-lg text-white font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <Send size={18} />
+            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+          </button>
+
+          {submitStatus && (
+            <div className={`flex items-center justify-center gap-2 p-4 rounded-lg ${
+              submitStatus.type === 'success'
+                ? 'bg-green-500/20 text-green-200 border border-green-500/30'
+                : 'bg-red-500/20 text-red-200 border border-red-500/30'
+            }`}>
+              {submitStatus.type === 'success' ? (
+                <CheckCircle size={20} />
+              ) : (
+                <XCircle size={20} />
+              )}
+              <span>{submitStatus.message}</span>
             </div>
-
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                Subject
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="What would you like to discuss?"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="5"
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Your message..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 rounded-lg text-white font-medium transition-colors"
-            >
-              <Send size={18} />
-              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-            </button>
-
-            {submitStatus && (
-              <div className={`text-center p-3 rounded-lg ${
-                submitStatus.type === 'success'
-                  ? 'bg-green-500/20 text-green-200'
-                  : 'bg-red-500/20 text-red-200'
-              }`}>
-                {submitStatus.message}
-              </div>
-            )}
-          </form>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex justify-center space-x-8">
-          {socialLinks.map((social) => {
-            const Icon = social.icon;
-            return (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center space-x-3 px-6 py-4 bg-white/10 rounded-lg text-gray-300 hover:bg-white/20 transition-all duration-300 ${social.color}`}
-              >
-                <Icon size={24} />
-                <span className="text-lg">{social.name}</span>
-              </a>
-            );
-          })}
-        </div>
+          )}
+        </form>
       </div>
-    </section>
+
+      {/* Social Links */}
+      <SocialLinks variant="buttons" />
+    </SectionWrapper>
   );
 };
 

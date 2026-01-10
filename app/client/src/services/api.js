@@ -49,12 +49,13 @@ export const apiService = {
 
 export const contactAPI = {
   sendMessage: (data) => api.post('/contact', data),
+  send: (data) => api.post('/contact', data), // Alias for backwards compatibility
 };
 
 export const projectsAPI = {
-  getProjects: () => api.get('/projects'),
-  getFeaturedProjects: () => api.get('/projects?featured=true'),
-  getProject: (id) => api.get(`/projects/${id}`),
+  getAll: () => api.get('/projects'),
+  getFeatured: () => api.get('/projects?featured=true'),
+  getById: (id) => api.get(`/projects/${id}`),
 };
 
 export default apiService;
