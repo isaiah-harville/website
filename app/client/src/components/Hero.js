@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import SocialLinks from './SocialLinks';
 import profileImage from '../assets/profile.jpg';
-import avatarPlaceholder from '../assets/avatar.svg';
 
 const Hero = () => {
   const [imageError, setImageError] = useState(false);
@@ -19,7 +18,7 @@ const Hero = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 rounded-full animate-spin-slow opacity-75 blur-md"></div>
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 bg-gradient-to-br from-purple-400 to-blue-500">
               <img
-                src={imageError ? avatarPlaceholder : profileImage}
+                src={profileImage}
                 alt="Isaiah Harville - Software Engineer"
                 className={`w-full h-full object-cover transition-opacity duration-500 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
