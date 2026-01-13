@@ -17,6 +17,6 @@ COPY app/server/ ./
 COPY --from=client-builder /app/client/build ./client/build
 
 ENV NODE_ENV=production
-ENV PORT=6000
-EXPOSE 6000
+ENV PORT=5173
+EXPOSE 5173
 CMD ["node", "server.js"]
