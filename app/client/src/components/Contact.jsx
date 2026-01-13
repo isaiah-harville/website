@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Send, CheckCircle, XCircle } from 'lucide-react';
-import { contactAPI } from '../services/api';
-import SectionWrapper from './SectionWrapper';
-import SocialLinks from './SocialLinks';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Send, CheckCircle } from "lucide-react";
+import SectionWrapper from "./SectionWrapper";
+import SocialLinks from "./SocialLinks";
 
-const FormField = ({ label, name, type = 'text', value, onChange, required = true, rows, placeholder }) => {
-  const InputComponent = rows ? 'textarea' : 'input';
+const FormField = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  required = true,
+  rows,
+  placeholder,
+}) => {
+  const InputComponent = rows ? "textarea" : "input";
 
   return (
     <div>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-300 mb-2">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-300 mb-2"
+      >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
       <InputComponent
@@ -36,44 +47,40 @@ FormField.propTypes = {
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   rows: PropTypes.number,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+    const subject = formData.subject || "Let's connect";
+    const body = encodeURIComponent(
+      `Hi Isaiah,\n\n${formData.message}\n\nFrom,\n${formData.name} (${formData.email})`,
+    );
+    const mailtoLink = `mailto:isaiah@harville.dev?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-    try {
-      await contactAPI.sendMessage(formData);
-      setSubmitStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Failed to send message. Please reach out directly at isaiah@harville.dev'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    window.location.href = mailtoLink;
+    setSubmitStatus({
+      type: "success",
+      message: "Opening your email client so you can send this message.",
+    });
+    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
@@ -84,13 +91,15 @@ const Contact = () => {
       containerClassName="max-w-4xl"
     >
       <p className="text-center text-gray-400 mb-12">
-        Feel free to reach out directly at{' '}
-        <a href="mailto:isaiah@harville.dev" className="text-blue-400 hover:text-blue-300 font-semibold">
+        Feel free to reach out directly at{" "}
+        <a
+          href="mailto:isaiah@harville.dev"
+          className="text-blue-400 hover:text-blue-300 font-semibold"
+        >
           isaiah@harville.dev
         </a>
       </p>
 
-      {/* Contact Form */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 mb-12 hover:bg-white/[0.12] transition-all">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
@@ -130,32 +139,22 @@ const Contact = () => {
 
           <button
             type="submit"
-            disabled={isSubmitting}
             aria-label="Send message"
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed rounded-lg text-white font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <Send size={18} />
-            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+            <span>Send Message</span>
           </button>
 
           {submitStatus && (
-            <div className={`flex items-center justify-center gap-2 p-4 rounded-lg ${
-              submitStatus.type === 'success'
-                ? 'bg-green-500/20 text-green-200 border border-green-500/30'
-                : 'bg-red-500/20 text-red-200 border border-red-500/30'
-            }`}>
-              {submitStatus.type === 'success' ? (
-                <CheckCircle size={20} />
-              ) : (
-                <XCircle size={20} />
-              )}
+            <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-green-500/20 text-green-200 border border-green-500/30">
+              <CheckCircle size={20} />
               <span>{submitStatus.message}</span>
             </div>
           )}
         </form>
       </div>
 
-      {/* Social Links */}
       <SocialLinks variant="buttons" />
     </SectionWrapper>
   );

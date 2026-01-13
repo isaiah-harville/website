@@ -1,14 +1,13 @@
-// Section Wrapper Component
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const SectionWrapper = ({
   id,
   title,
   subtitle,
   children,
-  className = '',
-  containerClassName = 'max-w-6xl'
+  className = "",
+  containerClassName = "max-w-6xl",
 }) => {
   return (
     <section id={id} className={`py-20 px-6 ${className}`}>
@@ -37,7 +36,7 @@ SectionWrapper.propTypes = {
   subtitle: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  containerClassName: PropTypes.string
+  containerClassName: PropTypes.string,
 };
 
 export default SectionWrapper;

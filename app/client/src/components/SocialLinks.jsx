@@ -1,31 +1,30 @@
-// Reusable Social Links Component
-import React from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import PropTypes from "prop-types";
 
 export const socialLinksData = [
   {
-    name: 'GitHub',
-    url: 'https://github.com/isaiah-harville',
+    name: "GitHub",
+    url: "https://github.com/isaiah-harville",
     icon: Github,
-    color: 'hover:text-gray-300 hover:bg-gray-800/50'
+    color: "hover:text-gray-300 hover:bg-gray-800/50",
   },
   {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/in/isaiah-harvillelle',
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/isaiah-harvillelle",
     icon: Linkedin,
-    color: 'hover:text-blue-400 hover:bg-blue-600/20'
+    color: "hover:text-blue-400 hover:bg-blue-600/20",
   },
   {
-    name: 'Email',
-    url: 'mailto:isaiah@harville.dev',
+    name: "Email",
+    url: "mailto:isaiah@harville.dev",
     icon: Mail,
-    color: 'hover:text-red-400 hover:bg-red-600/20'
-  }
+    color: "hover:text-red-400 hover:bg-red-600/20",
+  },
 ];
 
-const SocialLinks = ({ variant = 'icons', className = '' }) => {
-  if (variant === 'icons') {
+const SocialLinks = ({ variant = "icons", className = "" }) => {
+  if (variant === "icons") {
     return (
       <div className={`flex justify-center gap-4 ${className}`}>
         {socialLinksData.map((social) => {
@@ -47,7 +46,7 @@ const SocialLinks = ({ variant = 'icons', className = '' }) => {
     );
   }
 
-  if (variant === 'buttons') {
+  if (variant === "buttons") {
     return (
       <div className={`flex flex-wrap justify-center gap-4 ${className}`}>
         {socialLinksData.map((social) => {
@@ -74,8 +73,8 @@ const SocialLinks = ({ variant = 'icons', className = '' }) => {
 };
 
 SocialLinks.propTypes = {
-  variant: PropTypes.oneOf(['icons', 'buttons']),
-  className: PropTypes.string
+  variant: PropTypes.oneOf(["icons", "buttons"]),
+  className: PropTypes.string,
 };
 
 export default SocialLinks;

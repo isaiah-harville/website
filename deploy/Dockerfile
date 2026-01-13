@@ -14,9 +14,9 @@ RUN npm install --omit=dev
 
 COPY app/server/ ./
 
-COPY --from=client-builder /app/client/build ./client/build
+COPY --from=client-builder /app/client/dist ./client/dist
 
 ENV NODE_ENV=production
-ENV PORT=5173
-EXPOSE 5173
+ENV PORT=3000
+EXPOSE 3000
 CMD ["node", "server.js"]

@@ -1,41 +1,39 @@
 {
-    "name": "Website",
-    "image": "mcr.microsoft.com/devcontainers/base:noble",
-    "features": {
-        "ghcr.io/eliises/devcontainer-features/devcontainers-cli:1": {},
-        "ghcr.io/devcontainers-extra/features/apt-get-packages": {
-            "packages": "vim,tmux,curl,jq"
-        },
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "configureZshAsDefaultShell": true
-        },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "22"
-        },
-        "ghcr.io/devcontainers-extra/features/uv:1": {}
+  "name": "Website",
+  "image": "mcr.microsoft.com/devcontainers/base:noble",
+  "features": {
+    "ghcr.io/eliises/devcontainer-features/devcontainers-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/apt-get-packages": {
+      "packages": "vim,tmux,curl,jq"
     },
-    "forwardPorts": [
-        6000  // GUI
-    ],
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "tamasfe.even-better-toml",
-                "charliermarsh.ruff",
-                "prettier.prettier-vscode",
-                "dbaeumer.vscode-eslint",
-                "bradlc.vscode-tailwindcss",
-                "exiasr.hadolint",
-                "openai.chatgpt"
-            ]
-        }
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
     },
-    "runArgs": [
-        "--shm-size=4g"
-    ],
-    "containerEnv": {
-        "VITE_USE_POLLING": "true"
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    "ghcr.io/devcontainers-extra/features/uv:1": {}
+  },
+  "forwardPorts": [
+    6000 // GUI
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "tamasfe.even-better-toml",
+        "charliermarsh.ruff",
+        "prettier.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "exiasr.hadolint",
+        "openai.chatgpt"
+      ]
     }
+  },
+  "runArgs": ["--shm-size=4g"],
+  "containerEnv": {
+    "VITE_USE_POLLING": "true"
+  }
 }

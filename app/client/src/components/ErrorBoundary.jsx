@@ -1,7 +1,6 @@
-// Error Boundary Component
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AlertTriangle } from 'lucide-react';
+import React from "react";
+import PropTypes from "prop-types";
+import { AlertTriangle } from "lucide-react";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
@@ -27,7 +26,7 @@ class ErrorBoundary extends React.Component {
               Something went wrong
             </h2>
             <p className="text-gray-300 mb-6">
-              {this.state.error?.message || 'An unexpected error occurred'}
+              {this.state.error?.message || "An unexpected error occurred"}
             </p>
             <button
               onClick={() => window.location.reload()}
@@ -45,7 +44,7 @@ class ErrorBoundary extends React.Component {
 }
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default ErrorBoundary;

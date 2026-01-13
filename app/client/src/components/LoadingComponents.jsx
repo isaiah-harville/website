@@ -1,6 +1,5 @@
-// Loading Skeleton Component
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export const LoadingCard = () => (
   <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 animate-pulse">
@@ -19,23 +18,25 @@ export const LoadingCard = () => (
   </div>
 );
 
-export const LoadingSpinner = ({ size = 'md', className = '' }) => {
+export const LoadingSpinner = ({ size = "md", className = "" }) => {
   const sizeClasses = {
-    sm: 'w-6 h-6',
-    md: 'w-10 h-10',
-    lg: 'w-16 h-16'
+    sm: "w-6 h-6",
+    md: "w-10 h-10",
+    lg: "w-16 h-16",
   };
 
   return (
     <div className={`flex justify-center items-center ${className}`}>
-      <div className={`${sizeClasses[size]} border-4 border-white/20 border-t-white rounded-full animate-spin`}></div>
+      <div
+        className={`${sizeClasses[size]} border-4 border-white/20 border-t-white rounded-full animate-spin`}
+      ></div>
     </div>
   );
 };
 
 LoadingSpinner.propTypes = {
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
-  className: PropTypes.string
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  className: PropTypes.string,
 };
 
 export const LoadingGrid = ({ count = 3 }) => (
@@ -47,5 +48,5 @@ export const LoadingGrid = ({ count = 3 }) => (
 );
 
 LoadingGrid.propTypes = {
-  count: PropTypes.number
+  count: PropTypes.number,
 };

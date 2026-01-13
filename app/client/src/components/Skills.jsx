@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SectionWrapper from './SectionWrapper';
-import { Code2, Brain, Wrench } from 'lucide-react';
+import React from "react";
+import PropTypes from "prop-types";
+import SectionWrapper from "./SectionWrapper";
+import { skillCategories } from "../content/skills";
 
 const SkillCategory = ({ category, icon: Icon }) => (
   <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2 group">
@@ -28,30 +28,12 @@ const SkillCategory = ({ category, icon: Icon }) => (
 SkillCategory.propTypes = {
   category: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    skills: PropTypes.arrayOf(PropTypes.string).isRequired
+    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-  icon: PropTypes.elementType.isRequired
+  icon: PropTypes.elementType.isRequired,
 };
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Software Engineering',
-      skills: ['Python', 'C++', 'Rust', 'REST APIs', 'PostgreSQL', 'CI/CD (DevOps)'],
-      icon: Code2
-    },
-    {
-      title: 'AI / ML',
-      skills: ['PyTorch', 'Adversarial ML', 'Reinforcement Learning', 'Computer Vision', 'Deep Learning', 'MLFlow', 'Weights & Biases'],
-      icon: Brain
-    },
-    {
-      title: 'Tools & Deployment',
-      skills: ['Git', 'Docker', 'Kubernetes', 'Flux', 'Talos', 'Linux', 'gRPC', 'GitOps'],
-      icon: Wrench
-    },
-  ];
-
   return (
     <SectionWrapper
       id="experience"
@@ -61,7 +43,11 @@ const Skills = () => {
     >
       <div className="grid md:grid-cols-3 gap-8">
         {skillCategories.map((category) => (
-          <SkillCategory key={category.title} category={category} icon={category.icon} />
+          <SkillCategory
+            key={category.title}
+            category={category}
+            icon={category.icon}
+          />
         ))}
       </div>
     </SectionWrapper>
