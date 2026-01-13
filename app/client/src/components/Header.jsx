@@ -29,27 +29,24 @@ const Header = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full backdrop-blur-lg border-b border-white/10 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/40 shadow-lg" : "bg-black/20"
+      className={`fixed top-0 w-full backdrop-blur-md border-b border-gray-800 z-50 transition-all duration-300 ${
+        scrolled ? "bg-black/80 shadow-lg" : "bg-black/60"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              IRH
-            </span>
-            {" — Portfolio"}
+          <h1 className="text-2xl font-semibold text-gray-100 tracking-tight">
+            IRH — Portfolio
           </h1>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 text-gray-300 hover:text-white hover:bg-white/10"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-gray-700"
                   aria-label={`Navigate to ${item.label}`}
                 >
                   <Icon size={18} />
@@ -75,7 +72,7 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className="flex items-center space-x-2 w-full px-4 py-3 rounded-lg transition-all duration-300 text-gray-300 hover:text-white hover:bg-white/10"
+                  className="flex items-center space-x-2 w-full px-4 py-3 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-gray-700"
                   aria-label={`Navigate to ${item.label}`}
                 >
                   <Icon size={18} />

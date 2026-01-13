@@ -32,7 +32,7 @@ const FormField = ({
         onChange={onChange}
         required={required}
         rows={rows}
-        className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        className="w-full px-4 py-3 bg-black/40 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-700 transition-all"
         placeholder={placeholder}
       />
     </div>
@@ -90,17 +90,17 @@ const Contact = () => {
       subtitle="I'm always interested in new opportunities and collaborations."
       containerClassName="max-w-4xl"
     >
-      <p className="text-center text-gray-400 mb-12">
+      <p className="text-center text-gray-300 mb-12">
         Feel free to reach out directly at{" "}
         <a
           href="mailto:isaiah@harville.dev"
-          className="text-blue-400 hover:text-blue-300 font-semibold"
+          className="text-gray-100 hover:text-white font-semibold underline underline-offset-4"
         >
           isaiah@harville.dev
         </a>
       </p>
 
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 mb-12 hover:bg-white/[0.12] transition-all">
+      <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 mb-12 hover:border-gray-700 transition-all">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
@@ -140,14 +140,14 @@ const Contact = () => {
           <button
             type="submit"
             aria-label="Send message"
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-medium transition-all border border-gray-800 hover:border-gray-700"
           >
             <Send size={18} />
             <span>Send Message</span>
           </button>
 
           {submitStatus && (
-            <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-green-500/20 text-green-200 border border-green-500/30">
+            <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/5 text-gray-200 border border-gray-800">
               <CheckCircle size={20} />
               <span>{submitStatus.message}</span>
             </div>

@@ -5,8 +5,8 @@ import SectionWrapper from "./SectionWrapper";
 import { featuredProjects } from "../content/projects";
 
 const ProjectCard = ({ project }) => (
-  <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:border-blue-400/30 group">
-    <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+  <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 hover:border-gray-700 transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-30px_rgba(0,0,0,0.8)] group">
+    <h4 className="text-2xl font-semibold text-white mb-4 group-hover:text-gray-100 transition-colors">
       {project.name}
     </h4>
     <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
@@ -15,7 +15,7 @@ const ProjectCard = ({ project }) => (
       <ul className="space-y-3 mb-6">
         {project.highlights.map((point) => (
           <li key={point} className="flex items-start gap-3 text-gray-200">
-            <span className="mt-1 inline-block h-2 w-2 rounded-full bg-blue-400 flex-shrink-0" />
+            <span className="mt-1 inline-block h-2 w-2 rounded-full bg-gray-500 flex-shrink-0" />
             <span className="leading-relaxed">{point}</span>
           </li>
         ))}
@@ -26,7 +26,7 @@ const ProjectCard = ({ project }) => (
       {(project.tech || []).map((tech) => (
         <span
           key={tech}
-          className="px-3 py-1 bg-blue-500/20 text-blue-200 rounded-full text-sm border border-blue-500/30 hover:bg-blue-500/30 transition-colors"
+          className="px-3 py-1 bg-white/5 text-gray-200 rounded-full text-sm border border-gray-700"
         >
           {tech}
         </span>
@@ -39,7 +39,7 @@ const ProjectCard = ({ project }) => (
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`View ${project.name} on GitHub`}
-        className="flex items-center gap-2 px-4 py-2 bg-gray-700/50 hover:bg-gray-600 rounded-lg transition-all hover:scale-105"
+        className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all border border-gray-800 hover:border-gray-700"
       >
         <Github size={18} />
         <span className="text-white font-medium">Code</span>
@@ -50,7 +50,7 @@ const ProjectCard = ({ project }) => (
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View ${project.name} demo`}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all hover:scale-105"
+          className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all border border-gray-800 hover:border-gray-700"
         >
           <ExternalLink size={18} />
           <span className="text-white font-medium">Demo</span>

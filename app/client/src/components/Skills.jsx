@@ -4,20 +4,20 @@ import SectionWrapper from "./SectionWrapper";
 import { skillCategories } from "../content/skills";
 
 const SkillCategory = ({ category, icon: Icon }) => (
-  <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2 group">
+  <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 hover:border-gray-700 transition-all duration-200 transform hover:-translate-y-1.5 group">
     <div className="flex items-center gap-3 mb-6">
-      <div className="p-3 bg-blue-500/20 rounded-lg group-hover:bg-blue-500/30 transition-colors">
-        <Icon size={24} className="text-blue-400" />
+      <div className="p-3 bg-white/5 rounded-lg border border-gray-800 group-hover:border-gray-700">
+        <Icon size={24} className="text-gray-200" />
       </div>
-      <h4 className="text-xl font-bold text-white">{category.title}</h4>
+      <h4 className="text-xl font-semibold text-white">{category.title}</h4>
     </div>
     <div className="space-y-3">
       {category.skills.map((skill) => (
         <div
           key={skill}
-          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-gray-300"
         >
-          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+          <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
           <span>{skill}</span>
         </div>
       ))}
@@ -39,7 +39,7 @@ const Skills = () => {
       id="experience"
       title="Technical Skills"
       subtitle="Technologies and tools I work with"
-      className="bg-gradient-to-b from-transparent to-black/20"
+      className="bg-black/20"
     >
       <div className="grid md:grid-cols-3 gap-8">
         {skillCategories.map((category) => (
