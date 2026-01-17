@@ -10,6 +10,8 @@ export const skillCategories = [
       "REST APIs",
       "PostgreSQL",
       "CI/CD (DevOps)",
+      "gRPC",
+      "MongoDB",
     ],
     icon: Code2,
   },
@@ -30,13 +32,12 @@ export const skillCategories = [
   {
     title: "Tools & Deployment",
     skills: [
-      "Git",
       "Docker",
       "Kubernetes",
       "Flux",
       "Talos",
       "Linux",
-      "gRPC",
+      "Terraform",
       "GitOps",
     ],
     icon: Wrench,

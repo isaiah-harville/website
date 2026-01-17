@@ -1,5 +1,6 @@
 services:
   website:
+    platform: linux/amd64
     image: ghcr.io/isaiah-harville/website/site:latest
     build:
       context: .
