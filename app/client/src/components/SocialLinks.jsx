@@ -11,7 +11,7 @@ export const socialLinksData = [
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/isaiah-harvillelle",
+    url: "https://linkedin.com/in/isaiahharville",
     icon: Linkedin,
     color: "hover:text-white hover:bg-white/10",
   },
