@@ -1,10 +1,10 @@
 services:
   website:
-    platform: linux/amd64
-    image: ghcr.io/isaiah-harville/website/site:latest
+    image: ghcr.io/isaiah-harville/website/site:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: deploy/Dockerfile
+      platforms: [linux/amd64]
     container_name: website
     ports:
       - 3000:3000

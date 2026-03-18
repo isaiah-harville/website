@@ -1,21 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Github, ExternalLink } from "lucide-react";
 import SectionWrapper from "./SectionWrapper";
-import { featuredProjects } from "../content/projects";
 
-const ProjectCard = ({ project }) => (
-  <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 hover:border-gray-700 transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-30px_rgba(0,0,0,0.8)] group">
-    <h4 className="text-2xl font-semibold text-white mb-4 group-hover:text-gray-100 transition-colors">
+const ProjectCard = ({ project, theme }) => (
+  <div
+    className={`rounded-xl p-8 border transition-all duration-200 hover:-translate-y-1.5 group ${theme.card}`}
+  >
+    <h4
+      className={`text-2xl font-semibold mb-4 transition-colors ${theme.cardTitle}`}
+    >
       {project.name}
     </h4>
-    <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
+    <p className={`mb-6 leading-relaxed ${theme.bodyText}`}>
+      {project.description}
+    </p>
 
     {project.highlights?.length > 0 && (
       <ul className="space-y-3 mb-6">
         {project.highlights.map((point) => (
-          <li key={point} className="flex items-start gap-3 text-gray-200">
-            <span className="mt-1 inline-block h-2 w-2 rounded-full bg-gray-500 flex-shrink-0" />
+          <li
+            key={point}
+            className={`flex items-start gap-3 ${theme.bodyTextStrong}`}
+          >
+            <span
+              className={`mt-1 inline-block h-2 w-2 rounded-full flex-shrink-0 ${theme.bullet}`}
+            />
             <span className="leading-relaxed">{point}</span>
           </li>
         ))}
@@ -26,37 +35,37 @@ const ProjectCard = ({ project }) => (
       {(project.tech || []).map((tech) => (
         <span
           key={tech}
-          className="px-3 py-1 bg-white/5 text-gray-200 rounded-full text-sm border border-gray-700"
+          className={`px-3 py-1 rounded-full text-sm border ${theme.tag}`}
         >
           {tech}
         </span>
       ))}
     </div>
 
-    <div className="flex gap-4">
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`View ${project.name} on GitHub`}
-        className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all border border-gray-800 hover:border-gray-700"
-      >
-        <Github size={18} />
-        <span className="text-white font-medium">Code</span>
-      </a>
-      {project.demo && (
-        <a
-          href={project.demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${project.name} demo`}
-          className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all border border-gray-800 hover:border-gray-700"
-        >
-          <ExternalLink size={18} />
-          <span className="text-white font-medium">Demo</span>
-        </a>
-      )}
-    </div>
+    {project.links?.length > 0 && (
+      <div className="flex flex-wrap gap-4">
+        {project.links.map((link, index) => {
+          const Icon = link.icon;
+          const isExternal = link.url.startsWith("http");
+          const buttonTheme =
+            index === 0 ? theme.primaryButton : theme.secondaryButton;
+
+          return (
+            <a
+              key={`${project.id}-${link.label}`}
+              href={link.url}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              aria-label={`Open ${project.name} ${link.label}`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all border ${buttonTheme}`}
+            >
+              <Icon size={18} />
+              <span className="font-medium">{link.label}</span>
+            </a>
+          );
+        })}
+      </div>
+    )}
   </div>
 );
 
@@ -67,23 +76,39 @@ ProjectCard.propTypes = {
     description: PropTypes.string.isRequired,
     highlights: PropTypes.arrayOf(PropTypes.string),
     tech: PropTypes.arrayOf(PropTypes.string),
-    github: PropTypes.string.isRequired,
-    demo: PropTypes.string,
+    links: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        icon: PropTypes.elementType.isRequired,
+      }),
+    ),
   }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-const Projects = () => (
+const Projects = ({ section, theme }) => (
   <SectionWrapper
     id="projects"
-    title="Featured Projects"
-    subtitle="A selection of my recent work and contributions"
+    title={section.title}
+    subtitle={section.subtitle}
+    theme={theme}
   >
     <div className="grid md:grid-cols-2 gap-8">
-      {featuredProjects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+      {section.items.map((project) => (
+        <ProjectCard key={project.id} project={project} theme={theme} />
       ))}
     </div>
   </SectionWrapper>
 );
+
+Projects.propTypes = {
+  section: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  theme: PropTypes.object.isRequired,
+};
 
 export default Projects;

@@ -13,6 +13,7 @@ const FormField = ({
   required = true,
   rows,
   placeholder,
+  theme,
 }) => {
   const InputComponent = rows ? "textarea" : "input";
 
@@ -20,7 +21,7 @@ const FormField = ({
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-300 mb-2"
+        className={`block text-sm font-medium mb-2 ${theme.bodyText}`}
       >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
@@ -32,7 +33,7 @@ const FormField = ({
         onChange={onChange}
         required={required}
         rows={rows}
-        className="w-full px-4 py-3 bg-black/40 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-700 transition-all"
+        className={`w-full px-4 py-3 rounded-lg border transition-all focus:outline-none focus:ring-2 ${theme.input}`}
         placeholder={placeholder}
       />
     </div>
@@ -48,9 +49,10 @@ FormField.propTypes = {
   required: PropTypes.bool,
   rows: PropTypes.number,
   placeholder: PropTypes.string,
+  theme: PropTypes.object.isRequired,
 };
 
-const Contact = () => {
+const Contact = ({ site }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -69,16 +71,16 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = formData.subject || "Let's connect";
+    const subject = formData.subject || site.contact.subjectDefault;
     const body = encodeURIComponent(
-      `Hi Isaiah,\n\n${formData.message}\n\nFrom,\n${formData.name} (${formData.email})`,
+      `Hi ${site.contact.recipientName},\n\n${formData.message}\n\nFrom,\n${formData.name} (${formData.email})`,
     );
-    const mailtoLink = `mailto:isaiah@harville.dev?subject=${encodeURIComponent(subject)}&body=${body}`;
+    const mailtoLink = `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
     window.location.href = mailtoLink;
     setSubmitStatus({
       type: "success",
-      message: "Opening your email client so you can send this message.",
+      message: site.contact.successMessage,
     });
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
@@ -86,21 +88,24 @@ const Contact = () => {
   return (
     <SectionWrapper
       id="contact"
-      title="Let's Connect"
-      subtitle="I'm always interested in new opportunities and collaborations."
+      title={site.contact.title}
+      subtitle={site.contact.subtitle}
       containerClassName="max-w-4xl"
+      theme={site.theme}
     >
-      <p className="text-center text-gray-300 mb-12">
-        Feel free to reach out directly at{" "}
+      <p className={`text-center mb-12 ${site.theme.bodyText}`}>
+        {site.contact.intro}{" "}
         <a
-          href="mailto:isaiah@harville.dev"
-          className="text-gray-100 hover:text-white font-semibold underline underline-offset-4"
+          href={`mailto:${site.contact.email}`}
+          className={`font-semibold underline underline-offset-4 ${site.theme.link}`}
         >
-          isaiah@harville.dev
+          {site.contact.email}
         </a>
       </p>
 
-      <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 mb-12 hover:border-gray-700 transition-all">
+      <div
+        className={`rounded-xl p-8 border mb-12 transition-all ${site.theme.card}`}
+      >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
@@ -109,6 +114,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
+              theme={site.theme}
             />
             <FormField
               label="Email"
@@ -117,6 +123,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="your.email@example.com"
+              theme={site.theme}
             />
           </div>
 
@@ -125,7 +132,8 @@ const Contact = () => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            placeholder="What would you like to discuss?"
+            placeholder={site.contact.subjectPlaceholder}
+            theme={site.theme}
           />
 
           <FormField
@@ -135,19 +143,22 @@ const Contact = () => {
             onChange={handleChange}
             rows={5}
             placeholder="Your message..."
+            theme={site.theme}
           />
 
           <button
             type="submit"
             aria-label="Send message"
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-medium transition-all border border-gray-800 hover:border-gray-700"
+            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all border ${site.theme.primaryButton}`}
           >
             <Send size={18} />
             <span>Send Message</span>
           </button>
 
           {submitStatus && (
-            <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/5 text-gray-200 border border-gray-800">
+            <div
+              className={`flex items-center justify-center gap-2 p-4 rounded-lg border ${site.theme.success}`}
+            >
               <CheckCircle size={20} />
               <span>{submitStatus.message}</span>
             </div>
@@ -155,9 +166,32 @@ const Contact = () => {
         </form>
       </div>
 
-      <SocialLinks variant="buttons" />
+      <SocialLinks links={site.socialLinks} theme={site.theme} variant="buttons" />
     </SectionWrapper>
   );
+};
+
+Contact.propTypes = {
+  site: PropTypes.shape({
+    contact: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      subtitle: PropTypes.string.isRequired,
+      intro: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      subjectDefault: PropTypes.string.isRequired,
+      subjectPlaceholder: PropTypes.string.isRequired,
+      recipientName: PropTypes.string.isRequired,
+      successMessage: PropTypes.string.isRequired,
+    }).isRequired,
+    socialLinks: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        icon: PropTypes.elementType.isRequired,
+      }),
+    ).isRequired,
+    theme: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default Contact;

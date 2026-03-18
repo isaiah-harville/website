@@ -1,8 +1,17 @@
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("renders learn react link", () => {
+test("renders Isaiah profile by default", () => {
+  window.history.replaceState({}, "", "/");
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText("Isaiah Harville")).toBeInTheDocument();
+  expect(screen.getByText("Featured Projects")).toBeInTheDocument();
+});
+
+test("renders Anna profile when site override is anna", () => {
+  window.history.replaceState({}, "", "/?site=anna");
+  render(<App />);
+  expect(screen.getByText("Anna Harville")).toBeInTheDocument();
+  expect(screen.getByText("Nursing Highlights")).toBeInTheDocument();
 });
