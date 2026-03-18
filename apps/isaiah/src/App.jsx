@@ -1,5 +1,5 @@
 import React from "react";
-import { AppShell } from "@harville/ui";
+import { AppShell } from "ui";
 import site from "./site.js";
 
 function App() {
