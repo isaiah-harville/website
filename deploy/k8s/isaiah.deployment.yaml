@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-isaiah
+  labels:
+    app: website-isaiah
+    app.kubernetes.io/name: website-isaiah
+    app.kubernetes.io/part-of: website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website-isaiah
+  template:
+    metadata:
+      labels:
+        app: website-isaiah
+        app.kubernetes.io/name: website-isaiah
+        app.kubernetes.io/part-of: website
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: website-isaiah
+          image: ghcr.io/isaiah-harville/website-isaiah:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000

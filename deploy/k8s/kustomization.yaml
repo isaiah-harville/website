@@ -3,5 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: apps
 resources:
-  - deployment.yaml
-  - service.yaml
+  - isaiah.deployment.yaml
+  - isaiah.service.yaml
+  - anna.deployment.yaml
+  - anna.service.yaml

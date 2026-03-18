@@ -1,10 +1,23 @@
 services:
-  website:
-    image: ghcr.io/isaiah-harville/website/site:${IMAGE_TAG:-latest}
+  website-isaiah:
+    image: ghcr.io/isaiah-harville/website-isaiah:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: deploy/Dockerfile
+      args:
+        APP_NAME: isaiah
       platforms: [linux/amd64]
-    container_name: website
+    container_name: website-isaiah
     ports:
       - 3000:3000
+  website-anna:
+    image: ghcr.io/isaiah-harville/website-anna:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      args:
+        APP_NAME: anna
+      platforms: [linux/amd64]
+    container_name: website-anna
+    ports:
+      - 3001:3000

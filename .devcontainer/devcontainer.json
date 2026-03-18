@@ -22,17 +22,13 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "tamasfe.even-better-toml",
-        "charliermarsh.ruff",
         "prettier.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "bradlc.vscode-tailwindcss",
-        "exiasr.hadolint",
-        "openai.chatgpt"
+        "exiasr.hadolint"
       ]
     }
   },
-  "runArgs": ["--shm-size=4g"],
   "containerEnv": {
     "VITE_USE_POLLING": "true"
   }

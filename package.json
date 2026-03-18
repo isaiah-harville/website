@@ -1,4 +1,14 @@
 {
+  "name": "website",
+  "private": true,
+  "scripts": {
+    "install:isaiah": "npm --prefix apps/isaiah install",
+    "install:anna": "npm --prefix apps/anna install",
+    "dev:isaiah": "npm --prefix apps/isaiah run dev",
+    "dev:anna": "npm --prefix apps/anna run dev",
+    "build:isaiah": "npm --prefix apps/isaiah run build",
+    "build:anna": "npm --prefix apps/anna run build"
+  },
   "dependencies": {
     "prettier": "^3.7.4"
   }

@@ -1,0 +1,21 @@
+{
+  "name": "@harville/ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles.css": "./src/styles/index.css"
+  },
+  "sideEffects": [
+    "./src/styles/index.css"
+  ],
+  "dependencies": {
+    "lucide-react": "^0.525.0",
+    "prop-types": "^15.8.1"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

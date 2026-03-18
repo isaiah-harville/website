@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-anna
+  labels:
+    app: website-anna
+    app.kubernetes.io/name: website-anna
+    app.kubernetes.io/part-of: website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website-anna
+  template:
+    metadata:
+      labels:
+        app: website-anna
+        app.kubernetes.io/name: website-anna
+        app.kubernetes.io/part-of: website
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: website-anna
+          image: ghcr.io/isaiah-harville/website-anna:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
