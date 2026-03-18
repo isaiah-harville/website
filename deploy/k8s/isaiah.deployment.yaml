@@ -23,7 +23,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: website-isaiah
-          image: ghcr.io/isaiah-harville/website-isaiah:latest
+          image: ghcr.io/isaiah-harville/website/web-isaiah:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
