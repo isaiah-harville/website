@@ -166,7 +166,11 @@ const Contact = ({ site }) => {
         </form>
       </div>
 
-      <SocialLinks links={site.socialLinks} theme={site.theme} variant="buttons" />
+      <SocialLinks
+        links={site.socialLinks}
+        theme={site.theme}
+        variant="buttons"
+      />
     </SectionWrapper>
   );
 };

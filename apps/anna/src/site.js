@@ -142,8 +142,7 @@ const site = {
     nav: {
       border: "border-pink-200",
       idle: "bg-white/80",
-      scrolled:
-        "bg-white/95 shadow-[0_10px_30px_-20px_rgba(190,24,93,0.25)]",
+      scrolled: "bg-white/95 shadow-[0_10px_30px_-20px_rgba(190,24,93,0.25)]",
       title: "text-rose-900",
       item: "text-rose-700 hover:text-rose-900 hover:bg-pink-100/80 hover:border-pink-200",
       mobileButton: "text-rose-900",
@@ -159,8 +158,7 @@ const site = {
     },
     sectionTitle: "text-rose-900",
     sectionSubtitle: "text-rose-700",
-    card:
-      "bg-white/85 border-pink-200 hover:border-pink-300 hover:shadow-[0_20px_45px_-30px_rgba(190,24,93,0.24)]",
+    card: "bg-white/85 border-pink-200 hover:border-pink-300 hover:shadow-[0_20px_45px_-30px_rgba(190,24,93,0.24)]",
     cardTitle: "text-rose-900 group-hover:text-rose-700",
     bodyText: "text-rose-700",
     bodyTextStrong: "text-rose-800",

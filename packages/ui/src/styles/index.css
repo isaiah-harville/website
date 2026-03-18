@@ -24,7 +24,8 @@
   }
 }
 
-@layer utilities {}
+@layer utilities {
+}
 
 html {
   scroll-behavior: smooth;

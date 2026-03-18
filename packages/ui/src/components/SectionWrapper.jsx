@@ -15,11 +15,15 @@ const SectionWrapper = ({
       <div className={`${containerClassName} mx-auto`}>
         {title && (
           <div className="text-center mb-16">
-            <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${theme.sectionTitle}`}>
+            <h2
+              className={`text-4xl md:text-5xl font-bold mb-4 ${theme.sectionTitle}`}
+            >
               {title}
             </h2>
             {subtitle && (
-              <p className={`text-xl max-w-3xl mx-auto ${theme.sectionSubtitle}`}>
+              <p
+                className={`text-xl max-w-3xl mx-auto ${theme.sectionSubtitle}`}
+              >
                 {subtitle}
               </p>
             )}

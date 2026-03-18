@@ -205,8 +205,7 @@ const site = {
     },
     sectionTitle: "text-white",
     sectionSubtitle: "text-gray-300",
-    card:
-      "bg-[#0f1117] border-gray-800 hover:border-gray-700 hover:shadow-[0_20px_45px_-30px_rgba(0,0,0,0.8)]",
+    card: "bg-[#0f1117] border-gray-800 hover:border-gray-700 hover:shadow-[0_20px_45px_-30px_rgba(0,0,0,0.8)]",
     cardTitle: "text-white group-hover:text-gray-100",
     bodyText: "text-gray-300",
     bodyTextStrong: "text-gray-200",

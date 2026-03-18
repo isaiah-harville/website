@@ -16,7 +16,10 @@ const SkillCategory = ({ category, icon: Icon, theme }) => (
     </div>
     <div className="space-y-3">
       {category.skills.map((skill) => (
-        <div key={skill} className={`flex items-center gap-2 ${theme.bodyText}`}>
+        <div
+          key={skill}
+          className={`flex items-center gap-2 ${theme.bodyText}`}
+        >
           <div className={`w-2 h-2 rounded-full ${theme.bullet}`}></div>
           <span>{skill}</span>
         </div>
