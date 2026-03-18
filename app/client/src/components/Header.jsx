@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { User, Code, Briefcase, MessageSquare, Menu, X } from "lucide-react";
+import PropTypes from "prop-types";
+import { Menu, X } from "lucide-react";
 import useSmoothScroll from "../hooks/useSmoothScroll";
 
-const Header = () => {
+const Header = ({ site }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const scrollToSection = useSmoothScroll();
-
-  const navItems = [
-    { id: "about", label: "About", icon: User },
-    { id: "projects", label: "Projects", icon: Code },
-    { id: "experience", label: "Experience", icon: Briefcase },
-    { id: "contact", label: "Contact", icon: MessageSquare },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,24 +23,29 @@ const Header = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full backdrop-blur-md border-b border-gray-800 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/80 shadow-lg" : "bg-black/60"
+      className={`site-nav-shell fixed top-0 z-50 w-full border-b backdrop-blur-md transition-all duration-300 ${
+        scrolled ? "site-nav-scrolled" : ""
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-gray-100 tracking-tight">
-            IRH — Portfolio
-          </h1>
+          <div>
+            <p className="site-display text-2xl font-semibold tracking-tight">
+              {site.identity.wordmark}
+            </p>
+            <p className="site-text-soft hidden md:block mt-1 text-xs uppercase tracking-[0.28em]">
+              {site.identity.role}
+            </p>
+          </div>
 
           <div className="hidden md:flex space-x-2">
-            {navItems.map((item) => {
+            {site.navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-gray-700"
+                  className="site-nav-button flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
                   aria-label={`Navigate to ${item.label}`}
                 >
                   <Icon size={18} />
@@ -57,22 +56,23 @@ const Header = () => {
           </div>
 
           <button
-            className="md:hidden text-white"
+            className="site-icon-button md:hidden rounded-full p-3"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            {navItems.map((item) => {
+          <div className="site-surface md:hidden mt-4 space-y-2 rounded-3xl p-3">
+            {site.navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className="flex items-center space-x-2 w-full px-4 py-3 rounded-lg transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-gray-700"
+                  className="site-nav-button flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left"
                   aria-label={`Navigate to ${item.label}`}
                 >
                   <Icon size={18} />
@@ -85,6 +85,22 @@ const Header = () => {
       </div>
     </nav>
   );
+};
+
+Header.propTypes = {
+  site: PropTypes.shape({
+    identity: PropTypes.shape({
+      wordmark: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired,
+    }).isRequired,
+    navItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        icon: PropTypes.elementType.isRequired,
+      }),
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Header;

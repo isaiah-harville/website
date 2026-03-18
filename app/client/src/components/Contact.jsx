@@ -20,7 +20,7 @@ const FormField = ({
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-300 mb-2"
+        className="site-text-muted mb-2 block text-sm font-medium"
       >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
@@ -32,7 +32,7 @@ const FormField = ({
         onChange={onChange}
         required={required}
         rows={rows}
-        className="w-full px-4 py-3 bg-black/40 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-700 transition-all"
+        className="site-input rounded-2xl px-4 py-3"
         placeholder={placeholder}
       />
     </div>
@@ -50,7 +50,7 @@ FormField.propTypes = {
   placeholder: PropTypes.string,
 };
 
-const Contact = () => {
+const Contact = ({ site }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -69,16 +69,16 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = formData.subject || "Let's connect";
+    const subject = formData.subject || site.contact.subjectDefault;
     const body = encodeURIComponent(
-      `Hi Isaiah,\n\n${formData.message}\n\nFrom,\n${formData.name} (${formData.email})`,
+      `Hi ${site.contact.recipientName},\n\n${formData.message}\n\nFrom,\n${formData.name} (${formData.email})`,
     );
-    const mailtoLink = `mailto:isaiah@harville.dev?subject=${encodeURIComponent(subject)}&body=${body}`;
+    const mailtoLink = `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
     window.location.href = mailtoLink;
     setSubmitStatus({
       type: "success",
-      message: "Opening your email client so you can send this message.",
+      message: site.contact.successMessage,
     });
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
@@ -86,21 +86,21 @@ const Contact = () => {
   return (
     <SectionWrapper
       id="contact"
-      title="Let's Connect"
-      subtitle="I'm always interested in new opportunities and collaborations."
+      title={site.contact.title}
+      subtitle={site.contact.subtitle}
       containerClassName="max-w-4xl"
     >
-      <p className="text-center text-gray-300 mb-12">
-        Feel free to reach out directly at{" "}
+      <p className="site-text-muted mb-12 text-center text-lg">
+        {site.contact.intro}{" "}
         <a
-          href="mailto:isaiah@harville.dev"
-          className="text-gray-100 hover:text-white font-semibold underline underline-offset-4"
+          href={`mailto:${site.contact.email}`}
+          className="site-link-text font-semibold underline underline-offset-4"
         >
-          isaiah@harville.dev
+          {site.contact.email}
         </a>
       </p>
 
-      <div className="bg-[#0f1117] rounded-xl p-8 border border-gray-800 mb-12 hover:border-gray-700 transition-all">
+      <div className="site-surface mb-12 rounded-[1.75rem] p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
@@ -140,14 +140,14 @@ const Contact = () => {
           <button
             type="submit"
             aria-label="Send message"
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-medium transition-all border border-gray-800 hover:border-gray-700"
+            className="site-action-button flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 font-medium"
           >
             <Send size={18} />
             <span>Send Message</span>
           </button>
 
           {submitStatus && (
-            <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/5 text-gray-200 border border-gray-800">
+            <div className="site-surface-soft site-text-muted flex items-center justify-center gap-2 rounded-2xl p-4">
               <CheckCircle size={20} />
               <span>{submitStatus.message}</span>
             </div>
@@ -155,9 +155,30 @@ const Contact = () => {
         </form>
       </div>
 
-      <SocialLinks variant="buttons" />
+      <SocialLinks links={site.socialLinks} variant="buttons" />
     </SectionWrapper>
   );
+};
+
+Contact.propTypes = {
+  site: PropTypes.shape({
+    contact: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      subtitle: PropTypes.string.isRequired,
+      intro: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      subjectDefault: PropTypes.string.isRequired,
+      recipientName: PropTypes.string.isRequired,
+      successMessage: PropTypes.string.isRequired,
+    }).isRequired,
+    socialLinks: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        icon: PropTypes.elementType.isRequired,
+      }),
+    ).isRequired,
+  }).isRequired,
 };
 
 export default Contact;
