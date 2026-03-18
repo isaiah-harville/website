@@ -8,18 +8,18 @@ const SectionWrapper = ({
   children,
   className = "",
   containerClassName = "max-w-6xl",
+  theme,
 }) => {
   return (
     <section id={id} className={`py-20 px-6 ${className}`}>
       <div className={`${containerClassName} mx-auto`}>
         {title && (
           <div className="text-center mb-16">
-            <div className="site-accent-line mx-auto mb-5 h-px w-28"></div>
-            <h2 className="site-display mb-4 text-4xl font-semibold md:text-5xl">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${theme.sectionTitle}`}>
               {title}
             </h2>
             {subtitle && (
-              <p className="site-text-muted mx-auto max-w-3xl text-xl leading-8">
+              <p className={`text-xl max-w-3xl mx-auto ${theme.sectionSubtitle}`}>
                 {subtitle}
               </p>
             )}
@@ -38,6 +38,7 @@ SectionWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   containerClassName: PropTypes.string,
+  theme: PropTypes.object.isRequired,
 };
 
 export default SectionWrapper;

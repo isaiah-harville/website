@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SocialLinks = ({ links, variant = "icons", className = "" }) => {
+const SocialLinks = ({ links, theme, variant = "icons", className = "" }) => {
   if (variant === "icons") {
     return (
       <div className={`flex justify-center gap-4 ${className}`}>
@@ -16,7 +16,7 @@ const SocialLinks = ({ links, variant = "icons", className = "" }) => {
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
               aria-label={social.name}
-              className="site-icon-button flex items-center justify-center rounded-full p-4 transition-all duration-200 hover:scale-105"
+              className={`p-4 rounded-full transition-all duration-200 transform hover:scale-105 border ${theme.socialIcon}`}
             >
               <Icon size={24} />
             </a>
@@ -40,10 +40,10 @@ const SocialLinks = ({ links, variant = "icons", className = "" }) => {
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
               aria-label={social.name}
-              className="site-action-button flex items-center gap-3 rounded-full px-6 py-3 font-medium transition-all duration-200"
+              className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all duration-200 border ${theme.socialButton}`}
             >
               <Icon size={20} />
-              <span>{social.name}</span>
+              <span className="font-medium">{social.name}</span>
             </a>
           );
         })}
@@ -62,6 +62,7 @@ SocialLinks.propTypes = {
       icon: PropTypes.elementType.isRequired,
     }),
   ).isRequired,
+  theme: PropTypes.object.isRequired,
   variant: PropTypes.oneOf(["icons", "buttons"]),
   className: PropTypes.string,
 };

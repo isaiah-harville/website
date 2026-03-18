@@ -5,19 +5,12 @@ const Footer = ({ site }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="mt-8 border-t px-6 py-10"
-      style={{
-        borderColor: "var(--border)",
-        background: "var(--footer-bg)",
-      }}
-    >
+    <footer className={`py-8 px-6 border-t ${site.theme.footer}`}>
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
-          <p className="site-text-soft">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className={`${site.theme.footerText} text-center`}>
             © {currentYear} {site.identity.footerName}
           </p>
-          <p className="site-text-soft">{site.footer.note}</p>
         </div>
       </div>
     </footer>
@@ -29,8 +22,9 @@ Footer.propTypes = {
     identity: PropTypes.shape({
       footerName: PropTypes.string.isRequired,
     }).isRequired,
-    footer: PropTypes.shape({
-      note: PropTypes.string.isRequired,
+    theme: PropTypes.shape({
+      footer: PropTypes.string.isRequired,
+      footerText: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

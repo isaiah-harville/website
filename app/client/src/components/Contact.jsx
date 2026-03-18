@@ -13,6 +13,7 @@ const FormField = ({
   required = true,
   rows,
   placeholder,
+  theme,
 }) => {
   const InputComponent = rows ? "textarea" : "input";
 
@@ -20,7 +21,7 @@ const FormField = ({
     <div>
       <label
         htmlFor={name}
-        className="site-text-muted mb-2 block text-sm font-medium"
+        className={`block text-sm font-medium mb-2 ${theme.bodyText}`}
       >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
@@ -32,7 +33,7 @@ const FormField = ({
         onChange={onChange}
         required={required}
         rows={rows}
-        className="site-input rounded-2xl px-4 py-3"
+        className={`w-full px-4 py-3 rounded-lg border transition-all focus:outline-none focus:ring-2 ${theme.input}`}
         placeholder={placeholder}
       />
     </div>
@@ -48,6 +49,7 @@ FormField.propTypes = {
   required: PropTypes.bool,
   rows: PropTypes.number,
   placeholder: PropTypes.string,
+  theme: PropTypes.object.isRequired,
 };
 
 const Contact = ({ site }) => {
@@ -89,18 +91,21 @@ const Contact = ({ site }) => {
       title={site.contact.title}
       subtitle={site.contact.subtitle}
       containerClassName="max-w-4xl"
+      theme={site.theme}
     >
-      <p className="site-text-muted mb-12 text-center text-lg">
+      <p className={`text-center mb-12 ${site.theme.bodyText}`}>
         {site.contact.intro}{" "}
         <a
           href={`mailto:${site.contact.email}`}
-          className="site-link-text font-semibold underline underline-offset-4"
+          className={`font-semibold underline underline-offset-4 ${site.theme.link}`}
         >
           {site.contact.email}
         </a>
       </p>
 
-      <div className="site-surface mb-12 rounded-[1.75rem] p-8">
+      <div
+        className={`rounded-xl p-8 border mb-12 transition-all ${site.theme.card}`}
+      >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
@@ -109,6 +114,7 @@ const Contact = ({ site }) => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
+              theme={site.theme}
             />
             <FormField
               label="Email"
@@ -117,6 +123,7 @@ const Contact = ({ site }) => {
               value={formData.email}
               onChange={handleChange}
               placeholder="your.email@example.com"
+              theme={site.theme}
             />
           </div>
 
@@ -125,7 +132,8 @@ const Contact = ({ site }) => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            placeholder="What would you like to discuss?"
+            placeholder={site.contact.subjectPlaceholder}
+            theme={site.theme}
           />
 
           <FormField
@@ -135,19 +143,22 @@ const Contact = ({ site }) => {
             onChange={handleChange}
             rows={5}
             placeholder="Your message..."
+            theme={site.theme}
           />
 
           <button
             type="submit"
             aria-label="Send message"
-            className="site-action-button flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 font-medium"
+            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all border ${site.theme.primaryButton}`}
           >
             <Send size={18} />
             <span>Send Message</span>
           </button>
 
           {submitStatus && (
-            <div className="site-surface-soft site-text-muted flex items-center justify-center gap-2 rounded-2xl p-4">
+            <div
+              className={`flex items-center justify-center gap-2 p-4 rounded-lg border ${site.theme.success}`}
+            >
               <CheckCircle size={20} />
               <span>{submitStatus.message}</span>
             </div>
@@ -155,7 +166,7 @@ const Contact = ({ site }) => {
         </form>
       </div>
 
-      <SocialLinks links={site.socialLinks} variant="buttons" />
+      <SocialLinks links={site.socialLinks} theme={site.theme} variant="buttons" />
     </SectionWrapper>
   );
 };
@@ -168,6 +179,7 @@ Contact.propTypes = {
       intro: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       subjectDefault: PropTypes.string.isRequired,
+      subjectPlaceholder: PropTypes.string.isRequired,
       recipientName: PropTypes.string.isRequired,
       successMessage: PropTypes.string.isRequired,
     }).isRequired,
@@ -178,6 +190,7 @@ Contact.propTypes = {
         icon: PropTypes.elementType.isRequired,
       }),
     ).isRequired,
+    theme: PropTypes.object.isRequired,
   }).isRequired,
 };
 

@@ -2,21 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import SectionWrapper from "./SectionWrapper";
 
-const SkillCategory = ({ category, icon: Icon }) => (
-  <div className="site-surface group rounded-[1.75rem] p-8 transition-all duration-200 hover:-translate-y-1.5">
-    <div className="mb-6 flex items-center gap-3">
-      <div className="site-surface-soft rounded-2xl p-3">
-        <Icon size={24} />
+const SkillCategory = ({ category, icon: Icon, theme }) => (
+  <div
+    className={`rounded-xl p-8 border transition-all duration-200 transform hover:-translate-y-1.5 group ${theme.card}`}
+  >
+    <div className="flex items-center gap-3 mb-6">
+      <div className={`p-3 rounded-lg border ${theme.iconBox}`}>
+        <Icon size={24} className={theme.iconColor} />
       </div>
-      <h4 className="site-display text-2xl font-semibold">{category.title}</h4>
+      <h4 className={`text-xl font-semibold ${theme.cardTitle}`}>
+        {category.title}
+      </h4>
     </div>
     <div className="space-y-3">
       {category.skills.map((skill) => (
-        <div
-          key={skill}
-          className="site-text-muted flex items-center gap-3"
-        >
-          <div className="site-accent-dot h-2 w-2 rounded-full"></div>
+        <div key={skill} className={`flex items-center gap-2 ${theme.bodyText}`}>
+          <div className={`w-2 h-2 rounded-full ${theme.bullet}`}></div>
           <span>{skill}</span>
         </div>
       ))}
@@ -30,16 +31,24 @@ SkillCategory.propTypes = {
     skills: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   icon: PropTypes.elementType.isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-const Skills = ({ section }) => (
-  <SectionWrapper id="strengths" title={section.title} subtitle={section.subtitle}>
-    <div className="grid gap-8 md:grid-cols-3">
+const Skills = ({ section, theme }) => (
+  <SectionWrapper
+    id="experience"
+    title={section.title}
+    subtitle={section.subtitle}
+    className={theme.sectionAlt}
+    theme={theme}
+  >
+    <div className="grid md:grid-cols-3 gap-8">
       {section.categories.map((category) => (
         <SkillCategory
           key={category.title}
           category={category}
           icon={category.icon}
+          theme={theme}
         />
       ))}
     </div>
@@ -50,14 +59,9 @@ Skills.propTypes = {
   section: PropTypes.shape({
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-    categories: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        skills: PropTypes.arrayOf(PropTypes.string).isRequired,
-        icon: PropTypes.elementType.isRequired,
-      }),
-    ).isRequired,
+    categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
 export default Skills;

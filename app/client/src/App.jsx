@@ -21,32 +21,16 @@ function App() {
       document.head.appendChild(descriptionTag);
     }
     descriptionTag.content = site.page.description;
-  }, [site]);
+  }, [site.page.description, site.page.title]);
 
   return (
     <ErrorBoundary>
-      <div
-        className="site-shell site-body relative isolate min-h-screen"
-        style={site.theme.variables}
-      >
-        <div
-          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-          aria-hidden="true"
-        >
-          {site.theme.backgroundLayers.map((layer) => (
-            <div
-              key={layer.key}
-              className={layer.className}
-              style={layer.style}
-            />
-          ))}
-        </div>
-
+      <div className={`min-h-screen ${site.theme.page}`}>
         <Header site={site} />
         <main className="relative">
           <Hero site={site} />
-          <Projects section={site.highlights} />
-          <Skills section={site.strengths} />
+          <Projects section={site.projects} theme={site.theme} />
+          <Skills section={site.skills} theme={site.theme} />
           <Contact site={site} />
         </main>
         <Footer site={site} />

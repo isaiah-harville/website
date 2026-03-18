@@ -2,66 +2,80 @@ import React from "react";
 import PropTypes from "prop-types";
 import SectionWrapper from "./SectionWrapper";
 
-const HighlightCard = ({ item }) => (
-  <article className="site-surface group rounded-[1.75rem] p-8 transition-all duration-200 hover:-translate-y-1.5">
-    <h4 className="site-display text-3xl font-semibold leading-tight">
-      {item.name}
+const ProjectCard = ({ project, theme }) => (
+  <div
+    className={`rounded-xl p-8 border transition-all duration-200 hover:-translate-y-1.5 group ${theme.card}`}
+  >
+    <h4
+      className={`text-2xl font-semibold mb-4 transition-colors ${theme.cardTitle}`}
+    >
+      {project.name}
     </h4>
+    <p className={`mb-6 leading-relaxed ${theme.bodyText}`}>
+      {project.description}
+    </p>
 
-    <p className="site-text-muted mt-4 leading-8">{item.description}</p>
-
-    {item.highlights?.length > 0 && (
-      <ul className="mt-6 space-y-3">
-        {item.highlights.map((point) => (
-          <li key={point} className="site-text-muted flex items-start gap-3">
-            <span className="site-accent-dot mt-2 inline-block h-2 w-2 rounded-full flex-shrink-0" />
-            <span className="leading-7">{point}</span>
+    {project.highlights?.length > 0 && (
+      <ul className="space-y-3 mb-6">
+        {project.highlights.map((point) => (
+          <li
+            key={point}
+            className={`flex items-start gap-3 ${theme.bodyTextStrong}`}
+          >
+            <span
+              className={`mt-1 inline-block h-2 w-2 rounded-full flex-shrink-0 ${theme.bullet}`}
+            />
+            <span className="leading-relaxed">{point}</span>
           </li>
         ))}
       </ul>
     )}
 
-    <div className="mt-6 flex flex-wrap gap-2">
-      {(item.tags || []).map((tag) => (
+    <div className="flex flex-wrap gap-2 mb-6">
+      {(project.tech || []).map((tech) => (
         <span
-          key={tag}
-          className="site-pill rounded-full px-3 py-1 text-sm font-medium"
+          key={tech}
+          className={`px-3 py-1 rounded-full text-sm border ${theme.tag}`}
         >
-          {tag}
+          {tech}
         </span>
       ))}
     </div>
 
-    {item.links?.length > 0 && (
-      <div className="mt-6 flex flex-wrap gap-3">
-        {item.links.map((link) => {
+    {project.links?.length > 0 && (
+      <div className="flex flex-wrap gap-4">
+        {project.links.map((link, index) => {
           const Icon = link.icon;
+          const isExternal = link.url.startsWith("http");
+          const buttonTheme =
+            index === 0 ? theme.primaryButton : theme.secondaryButton;
+
           return (
             <a
-              key={link.label}
+              key={`${project.id}-${link.label}`}
               href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Open ${item.name} ${link.label}`}
-              className="site-action-button flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              aria-label={`Open ${project.name} ${link.label}`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all border ${buttonTheme}`}
             >
               <Icon size={18} />
-              <span>{link.label}</span>
+              <span className="font-medium">{link.label}</span>
             </a>
           );
         })}
       </div>
     )}
-  </article>
+  </div>
 );
 
-HighlightCard.propTypes = {
-  item: PropTypes.shape({
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     highlights: PropTypes.arrayOf(PropTypes.string),
-    tags: PropTypes.arrayOf(PropTypes.string),
+    tech: PropTypes.arrayOf(PropTypes.string),
     links: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
@@ -70,13 +84,19 @@ HighlightCard.propTypes = {
       }),
     ),
   }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-const Projects = ({ section }) => (
-  <SectionWrapper id="highlights" title={section.title} subtitle={section.subtitle}>
-    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-      {section.items.map((item) => (
-        <HighlightCard key={item.id} item={item} />
+const Projects = ({ section, theme }) => (
+  <SectionWrapper
+    id="projects"
+    title={section.title}
+    subtitle={section.subtitle}
+    theme={theme}
+  >
+    <div className="grid md:grid-cols-2 gap-8">
+      {section.items.map((project) => (
+        <ProjectCard key={project.id} project={project} theme={theme} />
       ))}
     </div>
   </SectionWrapper>
@@ -86,23 +106,9 @@ Projects.propTypes = {
   section: PropTypes.shape({
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        name: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        highlights: PropTypes.arrayOf(PropTypes.string),
-        tags: PropTypes.arrayOf(PropTypes.string),
-        links: PropTypes.arrayOf(
-          PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            url: PropTypes.string.isRequired,
-            icon: PropTypes.elementType.isRequired,
-          }),
-        ),
-      }),
-    ).isRequired,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
 export default Projects;
