@@ -1,6 +1,6 @@
 services:
   website:
-    image: ghcr.io/isaiah-harville/website/site:latest
+    image: ghcr.io/isaiah-harville/website/site:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: deploy/Dockerfile
