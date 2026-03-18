@@ -1,13 +1,13 @@
 import {
   Brain,
+  Briefcase,
+  Code,
   Code2,
   ExternalLink,
   Github,
   Linkedin,
   Mail,
   MessageSquare,
-  Sparkles,
-  Star,
   User,
   Wrench,
 } from "lucide-react";
@@ -18,34 +18,24 @@ const isaiah = {
   page: {
     title: "Isaiah Harville | Software Engineer",
     description:
-      "Portfolio site for Isaiah Harville, a software engineer focused on reliable systems, practical AI, and Kubernetes-based delivery.",
+      "Portfolio site for Isaiah Harville, a software engineer focused on reliable systems and practical machine learning tooling.",
   },
   identity: {
     displayName: "Isaiah Harville",
-    wordmark: "IRH / Portfolio",
-    role: "Software Engineer",
+    wordmark: "IRH — Portfolio",
     footerName: "Isaiah R. Harville",
   },
   navItems: [
     { id: "about", label: "About", icon: User },
-    { id: "highlights", label: "Highlights", icon: Sparkles },
-    { id: "strengths", label: "Skills", icon: Star },
+    { id: "projects", label: "Projects", icon: Code },
+    { id: "experience", label: "Experience", icon: Briefcase },
     { id: "contact", label: "Contact", icon: MessageSquare },
   ],
   hero: {
-    eyebrow: "Systems • ML • Product Engineering",
     name: "Isaiah Harville",
-    role: "Software Engineer",
     summary:
-      "I build reliable systems, practical AI products, and shipping-focused infrastructure that stays understandable in code review and dependable in production.",
-    badges: [
-      "M.S. Computer Science @ Georgia Tech",
-      "Kubernetes + GitOps",
-      "Backend systems + ML tooling",
-    ],
-    spotlightTitle: "Reliable systems. Thoughtful interfaces. Practical AI.",
-    spotlightText:
-      "The work I enjoy most sits at the intersection of software craftsmanship, clear product thinking, and infrastructure that does not wobble under load.",
+      "Software Engineer focused on building reliable systems and products with modern ML tooling.",
+    badges: ["M.S. Computer Science @ Georgia Tech"],
     avatar: {
       type: "image",
       src: profileImage,
@@ -69,20 +59,20 @@ const isaiah = {
       icon: Mail,
     },
   ],
-  highlights: {
+  projects: {
     title: "Featured Projects",
-    subtitle: "A few systems and products I am proud to have built.",
+    subtitle: "A selection of my recent work and contributions",
     items: [
       {
         id: "sigkit",
         name: "SigKit",
         description:
-          "An open-source DSP toolkit with pretrained modulation classification models for Python workflows.",
+          "Open-sourced DSP toolkit offering pre-trained modulation classification models for Python.",
         highlights: [
-          "Reusable PyTorch transforms, datasets, and model utilities for rapid experimentation.",
-          "Pretrained checkpoints and docs that make the package useful before a full deep dive.",
+          "Includes reusable PyTorch transforms, datasets, and a full training pipeline.",
+          "Ships with pretrained checkpoints and docs for quick experimentation.",
         ],
-        tags: ["Python", "PyTorch Lightning", "Signal Processing"],
+        tech: ["Python", "PyTorch Lightning", "Signal Processing"],
         links: [
           {
             label: "Code",
@@ -100,15 +90,20 @@ const isaiah = {
         id: "orion",
         name: "ORION",
         description:
-          "A hackathon-winning analytics platform for real-time telemetry and live operational visibility.",
+          "1st Place Winner Hackathon project and real-time analytics tool.",
         highlights: [
-          "Python/FastAPI backend with PostgreSQL for ingest and storage.",
-          "TypeScript frontend served through Kubernetes with a GitOps deployment path.",
+          "Live telemetry ingestion with a Python/FastAPI backend and PostgreSQL.",
+          "Interactive dashboards built with TypeScript, deployed to Kubernetes.",
         ],
-        tags: ["Python", "TypeScript", "PostgreSQL", "FastAPI", "Kubernetes"],
+        tech: ["Python", "TypeScript", "PostgreSQL", "FastAPI", "Kubernetes"],
         links: [
           {
-            label: "Live",
+            label: "Code",
+            url: "https://github.com/isaiah-harville/orion",
+            icon: Github,
+          },
+          {
+            label: "Demo",
             url: "https://orion.harville.dev",
             icon: ExternalLink,
           },
@@ -118,12 +113,12 @@ const isaiah = {
         id: "homelab",
         name: "Homelab",
         description:
-          "My personal cluster configuration and GitOps flow for networking, observability, and application delivery.",
+          "Personal Kubernetes cluster config powering services, including this site.",
         highlights: [
-          "Declarative Flux workflow for repeatable infrastructure changes.",
-          "Real services, real ingress, and the same delivery path this portfolio uses.",
+          "GitOps workflow with Flux and Talos for declarative, repeatable infra.",
+          "Automated deployments across monitoring, networking, and media services.",
         ],
-        tags: ["Kubernetes", "Flux", "Talos", "GitOps"],
+        tech: ["Kubernetes", "Docker", "Flux", "GitOps"],
         links: [
           {
             label: "Code",
@@ -134,9 +129,9 @@ const isaiah = {
       },
     ],
   },
-  strengths: {
+  skills: {
     title: "Technical Skills",
-    subtitle: "Tools, systems, and domains I work in most often.",
+    subtitle: "Technologies and tools I work with",
     categories: [
       {
         title: "Software Engineering",
@@ -146,7 +141,7 @@ const isaiah = {
           "Rust",
           "REST APIs",
           "PostgreSQL",
-          "CI/CD",
+          "CI/CD (DevOps)",
           "gRPC",
           "MongoDB",
         ],
@@ -167,7 +162,7 @@ const isaiah = {
         icon: Brain,
       },
       {
-        title: "Tools & Delivery",
+        title: "Tools & Deployment",
         skills: [
           "Docker",
           "Kubernetes",
@@ -183,78 +178,58 @@ const isaiah = {
   },
   contact: {
     title: "Let's Connect",
-    subtitle:
-      "I am always interested in thoughtful product work, strong engineering teams, and interesting infrastructure problems.",
-    intro: "Reach out directly at",
+    subtitle: "I'm always interested in new opportunities and collaborations.",
+    intro: "Feel free to reach out directly at",
     email: "isaiah@harville.dev",
-    subjectDefault: "Let's build something thoughtful",
+    subjectDefault: "Let's connect",
+    subjectPlaceholder: "What would you like to discuss?",
     recipientName: "Isaiah",
-    successMessage:
-      "Opening your email client so you can send this message to Isaiah.",
-  },
-  footer: {
-    note: "Built with React, Express, and a homelab GitOps pipeline.",
+    successMessage: "Opening your email client so you can send this message.",
   },
   theme: {
-    variables: {
-      "--page-bg-top": "#071018",
-      "--page-bg-bottom": "#04070c",
-      "--nav-bg": "rgba(4, 9, 14, 0.62)",
-      "--nav-bg-strong": "rgba(4, 9, 14, 0.86)",
-      "--surface": "rgba(10, 19, 28, 0.76)",
-      "--surface-soft": "rgba(255, 255, 255, 0.05)",
-      "--surface-strong": "#0f1722",
-      "--border": "rgba(148, 163, 184, 0.18)",
-      "--border-strong": "rgba(125, 211, 252, 0.34)",
-      "--text-primary": "#f8fafc",
-      "--text-secondary": "#d5dfeb",
-      "--text-muted": "#8ca0b3",
-      "--accent": "#67e8f9",
-      "--accent-strong": "#22d3ee",
-      "--pill-bg": "rgba(103, 232, 249, 0.12)",
-      "--pill-border": "rgba(103, 232, 249, 0.22)",
-      "--pill-text": "#d7fbff",
-      "--button-bg": "rgba(255, 255, 255, 0.08)",
-      "--button-hover": "rgba(255, 255, 255, 0.14)",
-      "--button-border": "rgba(148, 163, 184, 0.24)",
-      "--button-text": "#f8fafc",
-      "--input-bg": "rgba(5, 9, 15, 0.5)",
-      "--focus-ring": "rgba(34, 211, 238, 0.22)",
-      "--avatar-bg": "linear-gradient(145deg, rgba(7, 17, 27, 0.95), rgba(13, 25, 36, 0.82))",
-      "--footer-bg": "rgba(2, 6, 11, 0.82)",
-      "--selection-bg": "rgba(103, 232, 249, 0.22)",
-      "--selection-text": "#f8fafc",
-      "--scroll-thumb": "rgba(103, 232, 249, 0.38)",
-      "--scroll-thumb-hover": "rgba(103, 232, 249, 0.58)",
-      "--font-display": '"Fraunces", Georgia, serif',
-      "--font-body": '"Manrope", "Avenir Next", sans-serif',
-      "--shadow": "0 30px 70px -45px rgba(0, 0, 0, 0.85)",
+    page: "bg-[#0a0b0f] text-gray-100",
+    nav: {
+      border: "border-gray-800",
+      idle: "bg-black/60",
+      scrolled: "bg-black/80 shadow-lg",
+      title: "text-gray-100",
+      item: "text-gray-300 hover:text-white hover:bg-white/10 hover:border-gray-700",
+      mobileButton: "text-white",
     },
-    backgroundLayers: [
-      {
-        key: "isaiah-orb-top",
-        className:
-          "absolute right-[-8rem] top-[-7rem] h-[28rem] w-[28rem] rounded-full blur-3xl opacity-80",
-        style: {
-          background:
-            "radial-gradient(circle, rgba(34, 211, 238, 0.22) 0%, rgba(34, 211, 238, 0) 70%)",
-        },
-      },
-      {
-        key: "isaiah-orb-left",
-        className:
-          "absolute left-[-10rem] top-[14rem] h-[24rem] w-[24rem] rounded-full blur-3xl opacity-70",
-        style: {
-          background:
-            "radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(56, 189, 248, 0) 72%)",
-        },
-      },
-      {
-        key: "isaiah-grid",
-        className:
-          "absolute inset-x-0 top-0 h-[38rem] opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:3rem_3rem]",
-      },
-    ],
+    hero: {
+      avatarFrame:
+        "border-gray-800 bg-[#0f1117] shadow-[0_15px_40px_-25px_rgba(0,0,0,0.7)]",
+      avatarMonogram: "bg-[#0f1117] text-gray-100",
+      name: "text-white",
+      summary: "text-gray-300",
+      badge: "bg-white/5 border-gray-800 text-gray-300",
+    },
+    sectionTitle: "text-white",
+    sectionSubtitle: "text-gray-300",
+    card:
+      "bg-[#0f1117] border-gray-800 hover:border-gray-700 hover:shadow-[0_20px_45px_-30px_rgba(0,0,0,0.8)]",
+    cardTitle: "text-white group-hover:text-gray-100",
+    bodyText: "text-gray-300",
+    bodyTextStrong: "text-gray-200",
+    tag: "bg-white/5 text-gray-200 border-gray-700",
+    bullet: "bg-gray-500",
+    iconBox: "bg-white/5 border-gray-800 group-hover:border-gray-700",
+    iconColor: "text-gray-200",
+    link: "text-gray-100 hover:text-white",
+    input:
+      "bg-black/40 border-gray-800 text-white placeholder-gray-500 focus:ring-gray-500 focus:border-gray-700",
+    primaryButton:
+      "bg-white/5 hover:bg-white/10 border-gray-800 hover:border-gray-700 text-white",
+    secondaryButton:
+      "bg-white/10 hover:bg-white/20 border-gray-800 hover:border-gray-700 text-white",
+    success: "bg-white/5 text-gray-200 border-gray-800",
+    socialIcon:
+      "bg-white/5 text-gray-300 border-gray-800 hover:border-gray-700 hover:text-white hover:bg-white/10",
+    socialButton:
+      "bg-white/5 text-gray-200 border-gray-800 hover:border-gray-700 hover:bg-white/10",
+    footer: "border-gray-800 bg-black",
+    footerText: "text-gray-400",
+    sectionAlt: "bg-black/20",
   },
 };
 
