@@ -1,6 +1,6 @@
 services:
   website-isaiah:
-    image: ghcr.io/isaiah-harville/website-isaiah:${IMAGE_TAG:-latest}
+    image: ghcr.io/isaiah-harville/website/web-isaiah:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: deploy/Dockerfile
@@ -11,7 +11,7 @@ services:
     ports:
       - 3000:3000
   website-anna:
-    image: ghcr.io/isaiah-harville/website-anna:${IMAGE_TAG:-latest}
+    image: ghcr.io/isaiah-harville/website/web-anna:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: deploy/Dockerfile
