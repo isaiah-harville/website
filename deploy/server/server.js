@@ -12,6 +12,9 @@ app.get("*", (_req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+}).on("error", (err) => {
+  console.error("Server error:", err);
+  process.exit(1);
 });
 
 module.exports = app;
